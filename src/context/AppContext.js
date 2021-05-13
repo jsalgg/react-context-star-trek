@@ -10,7 +10,14 @@ export const AppContext = createContext();
 export const useApp = () => useContext(AppContext);
 
 export default function AppContextProvider({ children }) {
-  const buyCardForPLayer = useCallback((cardId) => {});
+    const buyCardForPlayer = useCallback((cardId) => {
+        const newApplicationState = {};
+        newApplicationState.decks = applicationState.decks;
+        newApplicationState.inventory = applicationState.inventory;
+        if (newApplicationState.inventory[cardId] > 0) newApplicationState.inventory[cardId]--;
+        setApplicationState(newApplicationState);
+
+  }, [children]);
   const [applicationState, setApplicationState] = useState({
     decks: initialDecks,
     inventory: initialInventory,
@@ -19,9 +26,9 @@ export default function AppContextProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
-        ...applicationState,
+        applicationState,
         cards: initialCards,
-        buyCard: buyCardForPLayer,
+        buyCard: buyCardForPlayer,
       }}
     >
       {children}
