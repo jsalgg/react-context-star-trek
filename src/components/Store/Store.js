@@ -3,9 +3,6 @@ import Card from "../Card";
 import { initialCards, initialInventory } from "../../mockdata/CardData";
 import { useApp } from "../../context/AppContext";
 
-
-
-
 const Store = () => {
   // const buyCard = (cardId) => console.log('Buy Card Coming Soon', cardId);
   const { buyCard, applicationState } = useApp();
@@ -13,7 +10,10 @@ const Store = () => {
   const cards = initialCards;
   useEffect(() => {
     console.log("Inventory updated.", applicationState.inventory);
-  }, [applicationState])
+  }, [applicationState]);
+  useEffect(() => {
+    console.log("Decks updated.", applicationState.decks);
+  }, [applicationState]);
 
   return (
     <div>
